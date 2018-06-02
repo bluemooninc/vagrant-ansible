@@ -1,0 +1,4 @@
+- include: tasks/httpd.yml
+- include: tasks/mysqld.yml
+- include: tasks/php7.yml
+- include: tasks/composer.yml
