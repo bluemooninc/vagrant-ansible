@@ -1,7 +1,6 @@
 #Apache install
 - hosts: vagrants
-  sudo: yes
-#  become: yes
+  become: yes
 #  become_user: vagrant
  
   tasks:

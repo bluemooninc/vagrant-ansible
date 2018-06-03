@@ -1,6 +1,6 @@
 #MySQL install
 - hosts: vagrants
-  sudo: yes
+  become: yes
   vars:
     root_db_password: "root"
  
@@ -23,6 +23,8 @@
 
     - name: start mysqld.service
       service: name=mysqld state=started
+
+    - name: start mysqld.service
       service: name=mysqld enabled=yes
       
     - name: anable socket

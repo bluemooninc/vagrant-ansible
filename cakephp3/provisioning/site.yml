@@ -1,4 +1,4 @@
-- include: tasks/httpd.yml
-- include: tasks/mysqld.yml
-- include: tasks/php7.yml
-- include: tasks/composer.yml
+- import_playbook: tasks/httpd.yml
+- import_playbook: tasks/mysqld.yml
+- import_playbook: tasks/php7.yml
+- import_playbook: tasks/composer.yml

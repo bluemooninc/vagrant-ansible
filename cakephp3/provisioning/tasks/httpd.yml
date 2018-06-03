@@ -1,7 +1,6 @@
 #Apache install
 - hosts: vagrants
-  sudo: yes
-#  become: yes
+  become: yes
 #  become_user: vagrant
  
   tasks:
@@ -10,6 +9,8 @@
 
     - name: start httpd.service
       service: name=httpd state=started
+
+    - name: start httpd.service
       service: name=httpd enabled=yes
 
     - name: over write httpd.conf

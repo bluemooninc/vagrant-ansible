@@ -1,6 +1,6 @@
 #Apache install
 - hosts: vagrants
-  sudo: yes
+  become: yes
  
   tasks:
     - name: get composer
