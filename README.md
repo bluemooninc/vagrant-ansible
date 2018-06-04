@@ -45,4 +45,19 @@ MySQLのrootパスワードはrootです。
 
 IPアドレスは 192.168.33.10 になっています。
 
+# 環境変数について
+
+このプロビジョニングでは取り扱いません。以下参考に各自で記述ください。
+httpd だけに必要な変数は、httpd.conf の最後の行追記します。
+コマンドラインから実行する場合は /etc/profile に記述してください。
+migration や CI で利用する場合は profile 記述します。
+
+例: sudo vi  /etc/profile
+```
+export RDS_HOSTNAME=127.0.0.1
+export RDS_USERNAME=mydb
+export RDS_PASSWORD=mydb
+export RDS_DB_NAME=mydb
+```
+
 
