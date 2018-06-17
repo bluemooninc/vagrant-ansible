@@ -7,11 +7,15 @@ Vagrant で作成する仮想環境に Ansible でプロビジョニングする
 
 ## CakePHP3
 
-このテンプレートでは、CentOS7.4 に最新の Apache2 + MySQL5.6 + PHP7.2 + Composer の環境が構築されます。Database作成は手動。CakePHP3のインストールはwwwフォルダのシェルを実行します。
+このテンプレートでは、CentOS7.4 に最新の Apache2 + MySQL5.6 + PHP7.2 + Composer + phpMyAdminの環境が構築されます。Database作成は手動。CakePHP3のインストールはwwwフォルダのシェルを実行します。
 
 すでにプロジェクトが存在する場合は /vagrant/www/html にドキュメントルートがあるのでここで git clone し、 Database のユーザーやDBを手動で設定すればそこから開発をスタートとなります。
 
 IPアドレスは 192.168.33.10 に固定されています。変更する場合は事前に Vagrantfile を編集ください。
+
+## phpMyAdmin
+
+IPアドレスは 192.168.33.10/phpMyAdmin に設定されています。変更する場合は、provisioning/tasks/templates/phpMyAdmin.conf の設定を変更してください。
 
 # インストール方法
 
