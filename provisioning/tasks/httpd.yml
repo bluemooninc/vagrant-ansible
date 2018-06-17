@@ -1,0 +1,31 @@
+#Apache install
+- hosts: vagrants
+  become: yes
+#  become_user: vagrant
+ 
+  tasks:
+    - name: install the latest version of Apache
+      yum: name=httpd state=latest
+
+    - name: start httpd.service
+      service: name=httpd state=started
+
+    - name: start httpd.service
+      service: name=httpd enabled=yes
+
+    - name: over write httpd.conf
+      template:
+        src: "httpd.conf"
+        dest: "/etc/httpd/conf/"
+        owner: root
+        group: root
+        mode: 0600
+
+    - name: mkdir adachin in /etc/httpd/conf/
+      file: path=/etc/httpd/conf/conf.d/ state=directory owner=root group=root mode=0755
+
+    - name: restart httpd
+      service:
+        name: httpd
+        state: restarted
+

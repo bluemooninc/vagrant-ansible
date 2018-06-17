@@ -1,0 +1,13 @@
+#Apache install
+- hosts: vagrants
+  become: yes
+ 
+  tasks:
+    - name: get composer
+      get_url: url=https://getcomposer.org/installer  dest=/tmp/composer-setup.php
+
+    - name: install composer
+      shell: chdir=/tmp php composer-setup.php
+
+    - name: move composer.phar
+      shell: mv /tmp/composer.phar /bin/composer

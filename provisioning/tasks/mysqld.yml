@@ -1,0 +1,42 @@
+#MySQL install
+- hosts: vagrants
+  become: yes
+  vars:
+    root_db_password: "root"
+ 
+  tasks:
+    - name:  Add repositly
+      yum:
+          name: http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm
+          state: present
+
+    - name: install mysql
+      yum: 
+        name: "{{ item }} "
+        enablerepo: mysql56-community
+        disablerepo: mysql57-community
+        state: present
+      with_items:
+        - yum-utils
+        - MySQL-python
+        - mysql-community-server
+
+    - name: start mysqld.service
+      service: name=mysqld state=started
+
+    - name: start mysqld.service
+      service: name=mysqld enabled=yes
+      
+    - name: anable socket
+      file: dest=/var/lib/mysql/mysql.sock mode=a+x
+
+    - mysql_user: name=root host={{item}} password={{root_db_password}}
+      with_items:
+        - 127.0.0.1
+        - localhost
+    - template: src=.my.cnf dest=/root/.my.cnf owner=root mode=0600
+
+    - name: restart mysqld
+      service:
+        name: mysqld
+        state: restarted

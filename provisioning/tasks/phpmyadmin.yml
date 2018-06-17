@@ -1,0 +1,40 @@
+#MySQL install
+- hosts: vagrants
+  become: yes
+  vars:
+    root_db_password: "root"
+ 
+  tasks:
+  - name: phpMyAdmin Download
+    get_url:
+      url: https://files.phpmyadmin.net/phpMyAdmin/4.8.1/phpMyAdmin-4.8.1-all-languages.tar.gz
+      dest: /tmp/phpMyAdmin-4.8.1-all-languages.tar.gz
+      sha256sum: 4f7771e96a1637797e0dc710d36345d8327a612d8c08ac305018ef7185f2217d
+
+  - name: phpMyAdmin Extruct
+    unarchive:
+      src=/tmp/phpMyAdmin-4.8.1-all-languages.tar.gz
+      dest=/var/www/html
+      copy=no
+
+  - name: check folder
+    stat: path=/var/www/html/phpMyAdmin
+    register: fm
+
+  - name: rename folder
+    become: True
+    shell: mv /var/www/html/phpMyAdmin-4.8.1-all-languages /var/www/html/phpMyAdmin
+    when: not fm.stat.exists
+
+  - name: over write phpMyAdmin.conf
+    template:
+      src: "phpMyAdmin.conf"
+      dest: "/etc/httpd/conf.d/"
+      owner: root
+      group: root
+      mode: 0600
+
+  - name: restart httpd
+    service:
+      name: httpd
+      state: restarted
